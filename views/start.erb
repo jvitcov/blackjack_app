@@ -1,0 +1,10 @@
+<h2>Welcome to Blackjack!</h2>
+<%if @error %>
+      <div class="alert alert-error"><%=@error%></div>
+<% end %>
+<h5>What's your name?</h5>
+<form action='/player_name' method="post">
+	<input type="text" name="player_name"/>
+	<br/>
+	<input type="submit" class="btn"/>
+</form>

@@ -1,0 +1,15 @@
+body{
+	/*background-color: green;*/
+}
+form#hit_form{
+	float: left;
+	margin-right: 10px;
+}
+
+form#stay_form{
+	float: left;
+}
+
+img.card_img{
+	margin: 0px 5px 10px 0px;
+}

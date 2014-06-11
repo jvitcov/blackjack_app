@@ -1,0 +1,10 @@
+<h3>Thanks for playing <%= session[:player_name]%>. Please make a bet:</h3>
+<%if @error %>
+      <div class="alert alert-error"><%=@error%></div>
+<% end %>
+<h5>You have $<%= session[:player_pot].to_i %></h5>
+<form action='/bet' method="post">
+	<input type="text" name="player_bet"/>
+	<br/>
+	<input type="submit" value="Place Bet" class="btn"/>
+</form>
