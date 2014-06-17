@@ -87,10 +87,16 @@ post '/player_name' do
 	if params[:player_name].empty?
 		@error = "You must enter your name to play."
 		halt erb(:start)
+	elsif params[:player_name] =~ /^[A-Za-z]+$/
+		session[:player_name] = params[:player_name]
+		redirect '/bet'
+	else
+		@error = "You must enter a valid name to play."
+		halt erb(:start)
 	end
 
-	session[:player_name] = params[:player_name]
-	redirect '/bet'
+	# session[:player_name] = params[:player_name]
+	# redirect '/bet'
 end
 
 get '/bet' do
@@ -109,6 +115,9 @@ end
 post '/bet' do
 	if params[:player_bet].nil? || params[:player_bet].to_i == 0
 		@error = "You must make a bet."
+		halt erb(:bet)
+	elsif params[:player_bet].to_i < 0
+		@error = "You cannot bet a negative amount."
 		halt erb(:bet)
 	elsif params[:player_bet].to_i > session[:player_pot]
 		@error = "You cannot bet more that what you have."
@@ -135,6 +144,7 @@ get '/game' do
 	player_total = score(session[:player_cards])
 	if player_total == BLACKJACK
 		@hit_stay = false
+		session[:turn] = "dealer"
 		winner("Blackjack! You win!")
 		erb :game
 	else

@@ -1,56 +1,79 @@
 <div id="game">
-	<h3>Hi <%= session[:player_name] %>, Welcome to Blackjack!</h3>
+	<h4>Hi <%= session[:player_name] %>, thanks for playing.</h4>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>You have: <%= score(session[:player_cards]) %> points, and you have wagered a bet of $<%= session[:player_bet] %> with $<%= session[:player_pot] %> in your pot.</h4>
+			<% if !@hit_stay %>
+					<h4>Dealer has: <%= score(session[:dealer_cards]) %> points</h4>
+			<% end %>
+		</div>
+	</div>
+
+	<%if @hit_stay %>
+		<div class="row">
+			<div class="col-xs-12">
+				<h4 id="hit_stay">What would you like to do?</h4>
+				<form id="hit_form" action="/game/player/hit" method="post">
+					<input type="submit" value="hit" name="hit" class="btn btn-success"/>
+				</form>
+				<form id="stay_form" action="/game/player/stay" method="post">
+					<input type="submit" value="stay" name="stay" class="btn btn-warning"/>
+				</form>
+			</div>
+		</div>
+	<%end%>
 
 	<%if @error %>
-	      <div class="alert alert-error"><%=@error%></div>
+	  <div class="row status">
+		  <div class="col-xs-12 alert alert-danger">
+		  	<%= @error %>
+		  </div>
+	  </div>
 	<% end %>
 	<%if @success %>
-	  <div class="alert alert-success"><%=@success%></div>
+		<div class="row status">
+		  <div class="col-xs-12 alert alert-success">
+		  	<%= @success %>
+			  <% if @dealer_hit %>
+					<form id="dealer_hit" action="/game/dealer/hit" method="post">
+						<input type='submit' value='Show next dealer card' class='btn btn-info'/>
+					</form>
+				<% end %>
+			</div>
+		</div>
 	<% end %>
 
 	<% if @play_again %>
 		<p>
-			<strong>Play again?</strong>
+			<h4>Play again?</h4>
 			<a href="/bet" class="btn btn-primary">Yes</a>
 			<a href="/game_over" class="btn btn-warning">No</a>
 		</p>
 	<% end %>
 
-	<div class="well">
-		<h4>Dealer Cards:</h4>
-		<% session[:dealer_cards].each_with_index do |card, i|%>
-			<%if session[:turn] != 'dealer' && i==0 %>
-				<img src="/images/cards/cover.jpg">
-			<% else %>
-			<%= card_img(card) %>
+	<div class= "row">
+		<div id="player" class="well col-xs-12 col-sm-5">
+			<h4>Player Cards:</h4>
+			<% session[:player_cards].each do |card|%>
+				<%= card_img(card) %>
 			<% end %>
-		<% end %>
+		</div>
 
-		<% if !@hit_stay %>
-			<h4>Dealer has: <%= score(session[:dealer_cards]) %> points</h4>
-		<% end %>
-		<% if @dealer_hit %>
-			<form id="dealer_hit" action="/game/dealer/hit" method="post">
-				<input type='submit' value='Show next dealer card' class='btn'/>
-			</form>
-		<% end %>
+		<div id="spacer" class="col-sm-2">
+		</div>
+
+		<div id= "dealer" class="well col-xs-12 col-sm-5">
+			<h4>Dealer Cards:</h4>
+
+			<% session[:dealer_cards].each_with_index do |card, i|%>
+				<%if session[:turn] != 'dealer' && i==0 %>
+					<img src="/images/cards/cover.jpg">
+				<% else %>
+				<%= card_img(card) %>
+				<% end %>
+			<% end %>
+		</div>
 	</div>
-
-	<div class="well">
-		<h4>Player Cards:</h4>
-		<% session[:player_cards].each do |card|%>
-			<%= card_img(card) %>
-		<% end %>
-		<h4>You have: <%= score(session[:player_cards]) %> points, and you have wagered a bet of $<%= session[:player_bet] %> with $<%= session[:player_pot] %> in your pot.</h4>
-	</div>
-
-	<%if @hit_stay %>
-		<p>What would you like to do?</p>
-		<form id="hit_form" action="/game/player/hit" method="post">
-			<input type="submit" value="hit" name="hit" class="btn btn-success"/>
-		</form>
-		<form id="stay_form" action="/game/player/stay" method="post">
-			<input type="submit" value="stay" name="stay" class="btn btn-warning"/>
-		</form>
-	<%end%>
 </div>
+	

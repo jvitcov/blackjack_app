@@ -1,15 +1,41 @@
 body{
 	/*background-color: green;*/
 }
+#hit_stay{
+	float: left;
+	margin-top: 5px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.status{
+	max-width: 858px;
+}
+
+form#dealer_hit{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
 form#hit_form{
 	float: left;
 	margin-right: 10px;
+	margin-bottom: 10px;
 }
 
 form#stay_form{
 	float: left;
+	margin-bottom: 10px;
+}
+
+#spacer{
+	max-width: 50px;
 }
 
 img.card_img{
 	margin: 0px 5px 10px 0px;
+}
+
+.end{
+	margin-top: 50px;
 }

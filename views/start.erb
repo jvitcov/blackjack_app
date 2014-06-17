@@ -1,10 +1,11 @@
 <h2>Welcome to Blackjack!</h2>
 <%if @error %>
-      <div class="alert alert-error"><%=@error%></div>
+      <div class="alert alert-danger"><%=@error%></div>
 <% end %>
-<h5>What's your name?</h5>
-<form action='/player_name' method="post">
-	<input type="text" name="player_name"/>
-	<br/>
-	<input type="submit" class="btn"/>
+<form class="form-inline" role="form" action='/player_name' method="post">
+	<div class="form-group">
+		<label class="sr-only" for="name">Name</label>
+		<input type="text" class="form-control" placeholder="Enter Name" name="player_name"/>
+	</div>
+	<button type="submit" class="btn btn-info">Start</button>
 </form>

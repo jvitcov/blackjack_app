@@ -1,10 +1,12 @@
-<h3>Thanks for playing <%= session[:player_name]%>. Please make a bet:</h3>
+<h4>Thanks for playing <%= session[:player_name]%>.</h4>
 <%if @error %>
-      <div class="alert alert-error"><%=@error%></div>
+      <div class="alert alert-danger"><%=@error%></div>
 <% end %>
-<h5>You have $<%= session[:player_pot].to_i %></h5>
-<form action='/bet' method="post">
-	<input type="text" name="player_bet"/>
-	<br/>
-	<input type="submit" value="Place Bet" class="btn"/>
+<h4>You have $<%= session[:player_pot].to_i %></h4>
+<form class="form-inline" role="form" action='/bet' method="post">
+	<div class="form-group">
+		<label class="sr-only" for="bet">Make a Bet</label>
+		<input type="text" class="form-control" placeholder="Make a Bet" name="player_bet"/>
+	</div>
+	<button type="submit" class="btn btn-info">Place Bet</button>
 </form>
