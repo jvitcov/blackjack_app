@@ -1,7 +1,12 @@
 require 'rubygems'
 require 'sinatra'
 
-set :sessions, true
+# set :sessions, true
+# above causes betting error in chrome
+
+use Rack::Session::Cookie, :key => 'rack.session',
+													 :path => '/',
+													 :secret => 'chromebet'
 
 BLACKJACK = 21
 DEALER_MIN = 17
